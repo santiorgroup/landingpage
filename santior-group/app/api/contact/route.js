@@ -66,7 +66,12 @@ export async function POST(request) {
 
     if (!web3Data) {
       return NextResponse.json(
-        { success: false, message: "web3forms-bad-response" },
+        {
+          success: false,
+          message: "web3forms-bad-response",
+          debug_status: web3Res.status,
+          debug_body: web3Text.slice(0, 500),
+        },
         { status: 502 }
       );
     }
