@@ -174,7 +174,7 @@ export const ES = {
     { k: "NOMBRE", v: "SANTIOR GROUP LLC" },
     { k: "DIRECCIÓN", v: "35 Sanford St, Piso 1, Clifton, NJ 07011" },
     { k: "TELÉFONO", v: "201-897-2072" },
-    { k: "CORREO", v: "contacto@santiorgroup.com" },
+    { k: "CORREO", v: "info@santiorgroup.com" },
     { k: "ACTIVIDAD", v: "Business Consulting & Corporate Event Management" },
     { k: "HORARIOS", v: "Lunes a viernes, 9:00 – 18:00 (ET)" },
   ],
