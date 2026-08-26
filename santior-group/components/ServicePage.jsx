@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Reveal, { staggerContainer, staggerItem } from "./Reveal";
+import { ICONS } from "./Icons";
 
 export default function ServicePage({ svc }) {
   return (
@@ -46,17 +47,21 @@ export default function ServicePage({ svc }) {
             viewport={{ once: true, amount: 0.15 }}
             className="grid gap-px bg-line border border-line grid-cols-1 sm:grid-cols-2 lg:grid-cols-4"
           >
-            {svc.blocks.map((c) => (
-              <motion.div key={c.n} variants={staggerItem} className="bg-white p-6">
-                <span className="font-mono font-medium text-[9.5px] tracking-[0.18em] text-gold">
-                  {c.n}
-                </span>
-                <h3 className="mt-3.5 mb-2 font-serif font-semibold text-[17px] leading-tight text-navy">
-                  {c.title}
-                </h3>
-                <p className="m-0 font-sans text-[13px] leading-relaxed text-muted">{c.body}</p>
-              </motion.div>
-            ))}
+            {svc.blocks.map((c) => {
+              const Icon = ICONS[c.icon];
+              return (
+                <motion.div key={c.n} variants={staggerItem} className="bg-white p-6">
+                  {Icon && <Icon className="w-5 h-5 text-gold mb-3" />}
+                  <span className="font-mono font-medium text-[9.5px] tracking-[0.18em] text-gold">
+                    {c.n}
+                  </span>
+                  <h3 className="mt-3.5 mb-2 font-serif font-semibold text-[17px] leading-tight text-navy">
+                    {c.title}
+                  </h3>
+                  <p className="m-0 font-sans text-[13px] leading-relaxed text-muted">{c.body}</p>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>
