@@ -8,9 +8,16 @@ import Reveal from "@/components/Reveal";
 
 // Public site key — safe to expose in the browser. Set in Vercel env vars as
 // NEXT_PUBLIC_RECAPTCHA_SITE_KEY (the matching secret key stays server-side,
-// in app/api/contact/route.js).
+// in app/api/verify-captcha/route.js).
 const RECAPTCHA_SITE_KEY =
   process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "TU_SITE_KEY_AQUI";
+
+// Web3Forms' access key identifies which form/domain submissions belong to —
+// it's meant to be public (Web3Forms' own docs embed it directly in client-side
+// HTML forms), so it's fine here. Set it in Vercel as
+// NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY.
+const WEB3FORMS_ACCESS_KEY =
+  process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "TU_ACCESS_KEY_AQUI";
 
 export default function ContactoPage() {
   const { T } = useLanguage();
@@ -31,16 +38,35 @@ export default function ContactoPage() {
     }
 
     setStatus("sending");
-    const formData = new FormData(e.target);
-    formData.set("subject", "Nuevo mensaje de contacto - Santior Group");
-    formData.set("g-recaptcha-response", token);
 
     try {
-      const res = await fetch("/api/contact", {
+      // Step 1: verify the captcha with our server (keeps the secret key hidden).
+      const verifyRes = await fetch("/api/verify-captcha", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token }),
+      });
+      const verifyData = await verifyRes.json();
+
+      if (!verifyRes.ok || !verifyData.success) {
+        setStatus("captcha");
+        return;
+      }
+
+      // Step 2: submit directly to Web3Forms from the browser — a server-to-server
+      // call here gets blocked by Web3Forms' Cloudflare bot protection.
+      const formData = new FormData(e.target);
+      formData.delete("g-recaptcha-response");
+      formData.set("access_key", WEB3FORMS_ACCESS_KEY);
+      formData.set("subject", "Nuevo mensaje de contacto - Santior Group");
+
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
         body: formData,
       });
       const data = await res.json();
+
       if (res.status === 200 && data.success) {
         setStatus("sent");
         e.target.reset();
