@@ -12,14 +12,22 @@ export default function Footer() {
     <footer className="bg-navy-deep text-[#AEB6C0] border-t border-[#22314A]">
       <Reveal className="max-w-page mx-auto px-6 md:px-10 py-14 grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <div className="mb-4">
+          <div className="flex items-center gap-3 mb-4">
             <Image
-              src="/logo-white.png"
-              alt="Santior Group LLC"
-              width={576}
+              src="/logo-icon-white.png"
+              alt=""
+              width={184}
               height={184}
-              className="h-8 w-auto"
+              className="h-11 w-auto"
             />
+            <div className="flex flex-col gap-1">
+              <span className="font-serif font-semibold text-[17px] leading-none tracking-[0.14em] text-white">
+                SANTIOR
+              </span>
+              <span className="font-mono font-medium text-[9px] leading-none tracking-[0.26em] text-[#AEB6C0]">
+                GROUP LLC
+              </span>
+            </div>
           </div>
           <p className="font-sans text-[12.5px] leading-relaxed">
             35 Sanford St, Piso 1
