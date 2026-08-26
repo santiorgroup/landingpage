@@ -46,12 +46,6 @@ export default function InicioPage() {
               >
                 {T.heroCta} <IconArrowRight className="w-4 h-4" />
               </Link>
-              <Link
-                href="/eventos"
-                className="btn bg-transparent border border-gold/50 text-gold-light font-sans font-semibold text-[13px] px-6 py-4 inline-flex items-center gap-2 transition-colors hover:border-gold"
-              >
-                {T.heroCta2} <IconArrowRight className="w-4 h-4" />
-              </Link>
             </div>
             <motion.div
               variants={staggerContainer}
