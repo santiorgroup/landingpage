@@ -1,28 +1,47 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import Script from "next/script";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import Reveal from "@/components/Reveal";
 
-const WEB3FORMS_ACCESS_KEY = "2e01b0b5-fe8d-4329-99fd-02803dc3e42c";
+// Public site key — safe to expose in the browser. Set in Vercel env vars as
+// NEXT_PUBLIC_RECAPTCHA_SITE_KEY (the matching secret key stays server-side,
+// in app/api/contact/route.js).
+const RECAPTCHA_SITE_KEY =
+  process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "TU_SITE_KEY_AQUI";
 
 export default function ContactoPage() {
   const { T } = useLanguage();
-  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error | captcha
+  const recaptchaLoaded = useRef(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    const token =
+      typeof window !== "undefined" &&
+      window.grecaptcha &&
+      window.grecaptcha.getResponse();
+
+    if (!token) {
+      setStatus("captcha");
+      return;
+    }
+
     setStatus("sending");
     const formData = new FormData(e.target);
-    formData.set("access_key", WEB3FORMS_ACCESS_KEY);
+    formData.set("subject", "Nuevo mensaje de contacto - Santior Group");
+    formData.set("g-recaptcha-response", token);
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         body: formData,
       });
-      if (res.status === 200) {
+      const data = await res.json();
+      if (res.status === 200 && data.success) {
         setStatus("sent");
         e.target.reset();
       } else {
@@ -30,6 +49,8 @@ export default function ContactoPage() {
       }
     } catch {
       setStatus("error");
+    } finally {
+      if (window.grecaptcha) window.grecaptcha.reset();
     }
   }
 
@@ -91,12 +112,11 @@ export default function ContactoPage() {
           </Reveal>
 
           <Reveal delay={0.1}>
+            <Script src="https://www.google.com/recaptcha/api.js" strategy="afterInteractive" />
             <form
               onSubmit={handleSubmit}
               className="border border-line p-7 flex flex-col gap-4"
             >
-              <input type="hidden" name="access_key" value={"WEB3FORMS_ACCESS_KEY"} />
-              <input type="hidden" name="subject" value="Nuevo mensaje de contacto - Santior Group" />
               <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} />
 
               <h2 className="m-0 font-serif font-semibold text-[20px] leading-tight text-navy">
@@ -159,6 +179,8 @@ export default function ContactoPage() {
                 </span>
               </label>
 
+              <div className="g-recaptcha" data-sitekey={RECAPTCHA_SITE_KEY} />
+
               <motion.button
                 type="submit"
                 disabled={status === "sending"}
@@ -190,6 +212,17 @@ export default function ContactoPage() {
                     className="m-0 font-sans text-[12.5px] leading-relaxed text-red-600"
                   >
                     {T.fError}
+                  </motion.p>
+                )}
+                {status === "captcha" && (
+                  <motion.p
+                    key="captcha"
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="m-0 font-sans text-[12.5px] leading-relaxed text-red-600"
+                  >
+                    {T.fCaptchaError}
                   </motion.p>
                 )}
               </AnimatePresence>
