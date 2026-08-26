@@ -86,8 +86,8 @@ export default function Footer() {
             {T.fContacto}
           </h4>
           <div className="flex flex-col gap-2.5 font-sans text-[12.5px] leading-relaxed">
-            <a href="mailto:contacto@santiorgroup.com" className="hover:text-white transition-colors">
-              contacto@santiorgroup.com
+            <a href="mailto:info@santiorgroup.com" className="hover:text-white transition-colors">
+              info@santiorgroup.com
             </a>
             <a href="tel:2018972072" className="hover:text-white transition-colors">
               +1 (201) 897-2072
