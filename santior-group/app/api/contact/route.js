@@ -42,16 +42,29 @@ export async function POST(request) {
     }
 
     formData.delete("g-recaptcha-response");
-    formData.set("access_key", WEB3FORMS_ACCESS_KEY);
+
+    const payload = { access_key: WEB3FORMS_ACCESS_KEY };
+    for (const [key, value] of formData.entries()) {
+      payload[key] = value;
+    }
 
     const web3Res = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
-      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(payload),
     });
-    const web3Data = await web3Res.json().catch(() => null);
+    const web3Text = await web3Res.text();
+    let web3Data = null;
+    try {
+      web3Data = JSON.parse(web3Text);
+    } catch {
+      console.error("web3forms: non-JSON response", web3Res.status, web3Text.slice(0, 300));
+    }
 
     if (!web3Data) {
-      console.error("web3forms: non-JSON response", web3Res.status);
       return NextResponse.json(
         { success: false, message: "web3forms-bad-response" },
         { status: 502 }
