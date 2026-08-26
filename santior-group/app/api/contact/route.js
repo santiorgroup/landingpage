@@ -24,11 +24,19 @@ export async function POST(request) {
         response: token,
       }),
     });
-    const verifyData = await verifyRes.json();
+    const verifyData = await verifyRes.json().catch(() => null);
 
-    if (!verifyData.success) {
+    if (!verifyData) {
+      console.error("recaptcha-verify: non-JSON response", verifyRes.status);
       return NextResponse.json(
-        { success: false, message: "captcha-failed" },
+        { success: false, message: "captcha-verify-bad-response" },
+        { status: 502 }
+      );
+    }
+    if (!verifyData.success) {
+      console.error("recaptcha-verify failed:", verifyData["error-codes"]);
+      return NextResponse.json(
+        { success: false, message: "captcha-failed", errors: verifyData["error-codes"] },
         { status: 400 }
       );
     }
@@ -40,10 +48,22 @@ export async function POST(request) {
       method: "POST",
       body: formData,
     });
-    const web3Data = await web3Res.json();
+    const web3Data = await web3Res.json().catch(() => null);
+
+    if (!web3Data) {
+      console.error("web3forms: non-JSON response", web3Res.status);
+      return NextResponse.json(
+        { success: false, message: "web3forms-bad-response" },
+        { status: 502 }
+      );
+    }
+    if (!web3Data.success) {
+      console.error("web3forms failed:", web3Res.status, web3Data.message);
+    }
 
     return NextResponse.json(web3Data, { status: web3Res.status });
   } catch (err) {
+    console.error("contact route exception:", err);
     return NextResponse.json(
       { success: false, message: "server-error" },
       { status: 500 }
