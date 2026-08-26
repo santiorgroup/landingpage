@@ -29,9 +29,9 @@ export const ES = {
   trustNote: "Empresas de distintos sectores confían en nuestro trabajo.",
   ctaBannerNote: "Cuéntanos tu proyecto y le respondemos con un alcance concreto.",
   imgHero:
-    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
+    "https://images.unsplash.com/photo-1758691737584-a8f17fb34475?auto=format&fit=crop&w=1200&q=80",
   imgAbout:
-    "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=900&q=80",
   servTitle: "Dos líneas de servicio",
   servSub:
     "Cada línea define su alcance, sus entregables y el siguiente paso, para evitar confusión sobre el giro de la empresa.",
@@ -107,10 +107,10 @@ export const ES = {
     { n: "05", icon: "chart", title: "Seguimiento", body: "Cierre, reporte y mantenimiento." },
   ],
   aboutFacts: [
-    { title: "Misión concreta", body: "Coordinar proyectos y eventos corporativos con un proceso claro y verificable." },
-    { title: "Valores observables", body: "Orden, comunicación constante y ejecución responsable." },
-    { title: "Áreas de experiencia", body: "Planificación empresarial, logística y producción de eventos." },
-    { title: "Cobertura", body: "Clifton, Nueva Jersey y área metropolitana de Nueva York." },
+    { icon: "target", title: "Misión concreta", body: "Coordinar proyectos y eventos corporativos con un proceso claro y verificable." },
+    { icon: "users", title: "Valores observables", body: "Orden, comunicación constante y ejecución responsable." },
+    { icon: "building", title: "Áreas de experiencia", body: "Planificación empresarial, logística y producción de eventos." },
+    { icon: "mapPin", title: "Cobertura", body: "Clifton, Nueva Jersey y área metropolitana de Nueva York." },
   ],
   svc: {
     consultoria: {
@@ -222,9 +222,9 @@ export const EN = {
   trustNote: "Organizations across industries trust our work.",
   ctaBannerNote: "Tell us about your project and we'll reply with a concrete scope.",
   imgHero:
-    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
+    "https://images.unsplash.com/photo-1758691737584-a8f17fb34475?auto=format&fit=crop&w=1200&q=80",
   imgAbout:
-    "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=900&q=80",
   servTitle: "Two service lines",
   servSub: "Each line states its scope, deliverables and next step, so there is no confusion about what the firm does.",
   procTitle: "A process you can follow",
@@ -297,10 +297,10 @@ export const EN = {
     { n: "05", icon: "chart", title: "Follow up", body: "Close-out, reporting and maintenance." },
   ],
   aboutFacts: [
-    { title: "Concrete mission", body: "Coordinate projects and corporate events with a clear, verifiable process." },
-    { title: "Observable values", body: "Order, constant communication and accountable execution." },
-    { title: "Areas of experience", body: "Business planning, logistics and event production." },
-    { title: "Coverage", body: "Clifton, New Jersey and the greater New York area." },
+    { icon: "target", title: "Concrete mission", body: "Coordinate projects and corporate events with a clear, verifiable process." },
+    { icon: "users", title: "Observable values", body: "Order, constant communication and accountable execution." },
+    { icon: "building", title: "Areas of experience", body: "Business planning, logistics and event production." },
+    { icon: "mapPin", title: "Coverage", body: "Clifton, New Jersey and the greater New York area." },
   ],
   svc: {
     consultoria: {
