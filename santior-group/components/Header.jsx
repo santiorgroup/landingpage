@@ -36,15 +36,23 @@ export default function Header() {
 
       <header className="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-line">
         <div className="max-w-page mx-auto px-6 md:px-10 h-[78px] flex items-center justify-between gap-8">
-          <Link href="/" className="flex items-center shrink-0">
+          <Link href="/" className="flex items-center gap-3 shrink-0">
             <Image
-              src="/logo-full.png"
-              alt="Santior Group LLC"
-              width={1148}
+              src="/logo-icon.png"
+              alt=""
+              width={384}
               height={384}
               priority
-              className="h-9 md:h-10 w-auto"
+              className="h-10 md:h-11 w-auto"
             />
+            <div className="flex flex-col gap-1">
+              <span className="font-serif font-semibold text-[19px] md:text-[21px] leading-none tracking-[0.14em] text-navy">
+                SANTIOR
+              </span>
+              <span className="font-mono font-medium text-[9.5px] md:text-[10px] leading-none tracking-[0.28em] text-faint">
+                GROUP LLC
+              </span>
+            </div>
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
