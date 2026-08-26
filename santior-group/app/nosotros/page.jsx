@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 import Reveal, { staggerContainer, staggerItem } from "@/components/Reveal";
+import { ICONS } from "@/components/Icons";
 
 export default function NosotrosPage() {
   const { T } = useLanguage();
@@ -46,16 +47,20 @@ export default function NosotrosPage() {
               viewport={{ once: true, amount: 0.2 }}
               className="grid gap-px bg-line border border-line grid-cols-1 sm:grid-cols-2"
             >
-              {T.aboutFacts.map((f) => (
-                <motion.div key={f.title} variants={staggerItem} className="bg-white p-5">
-                  <h4 className="m-0 mb-1.5 font-sans font-semibold text-[13px] text-navy">
-                    {f.title}
-                  </h4>
-                  <p className="m-0 font-sans text-[12.5px] leading-relaxed text-muted">
-                    {f.body}
-                  </p>
-                </motion.div>
-              ))}
+              {T.aboutFacts.map((f) => {
+                const Icon = ICONS[f.icon];
+                return (
+                  <motion.div key={f.title} variants={staggerItem} className="bg-white p-5">
+                    {Icon && <Icon className="w-5 h-5 text-gold mb-2.5" />}
+                    <h4 className="m-0 mb-1.5 font-sans font-semibold text-[13px] text-navy">
+                      {f.title}
+                    </h4>
+                    <p className="m-0 font-sans text-[12.5px] leading-relaxed text-muted">
+                      {f.body}
+                    </p>
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </div>
           <motion.div
