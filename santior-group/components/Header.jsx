@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -35,13 +36,15 @@ export default function Header() {
 
       <header className="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-line">
         <div className="max-w-page mx-auto px-6 md:px-10 h-[78px] flex items-center justify-between gap-8">
-          <Link href="/" className="flex flex-col gap-1 group">
-            <span className="font-serif font-semibold text-[19px] leading-none tracking-[0.16em] text-navy">
-              SANTIOR
-            </span>
-            <span className="font-mono font-medium text-[8.5px] leading-none tracking-[0.26em] text-faint">
-              GROUP LLC
-            </span>
+          <Link href="/" className="flex items-center shrink-0">
+            <Image
+              src="/logo-full.png"
+              alt="Santior Group LLC"
+              width={1148}
+              height={384}
+              priority
+              className="h-9 md:h-10 w-auto"
+            />
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
