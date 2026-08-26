@@ -95,7 +95,7 @@ export default function ContactoPage() {
               onSubmit={handleSubmit}
               className="border border-line p-7 flex flex-col gap-4"
             >
-              <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+              <input type="hidden" name="access_key" value={2e01b0b5-fe8d-4329-99fd-02803dc3e42c} />
               <input type="hidden" name="subject" value="Nuevo mensaje de contacto - Santior Group" />
               <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} />
 
